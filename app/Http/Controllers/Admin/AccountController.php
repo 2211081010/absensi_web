@@ -66,6 +66,6 @@ class AccountController extends Controller
             ->update([
             'password' => bcrypt('Presensi2025')]);
 
-        return redirect('/admin/account')->with("success","Password Berhasil Direset ! | Password Default : Presensi2025");
+        return redirect('/admin/account')->with("success","Password Berhasil Direset ! | Password Default : Parkir2025");
     }
 }
