@@ -17,14 +17,20 @@ class PetugasController extends Controller
     // Tampil semua petugas
     public function read()
     {
-        $petugas = DB::table('petugas')->orderBy('id','DESC')->get();
+        $petugas = DB::table('petugas')
+            ->leftJoin('kantor', 'petugas.id_kantor', '=', 'kantor.id')
+            ->select('petugas.*', 'kantor.nama_kantor')
+            ->orderBy('petugas.id', 'DESC')
+            ->get();
+
         return view('admin.petugas.index', ['petugas' => $petugas]);
     }
 
     // Form tambah
     public function add()
     {
-        return view('admin.petugas.tambah');
+        $kantor = DB::table('kantor')->get();
+        return view('admin.petugas.tambah', ['kantor' => $kantor]);
     }
 
     // Simpan data baru
@@ -32,24 +38,34 @@ class PetugasController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
+            'nohp' => 'required|string|max:20',
             'foto' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'id_kantor' => 'nullable|exists:kantor,id',
         ]);
 
         $path = $request->file('foto')->store('foto_petugas', 'public');
 
         DB::table('petugas')->insert([
-            'nama' => $request->nama,
-            'foto' => $path
+            'id_kantor' => $request->id_kantor,
+            'nama'      => $request->nama,
+            'nohp'      => $request->nohp,
+            'foto'      => $path,
+            'created_at'=> now(),
+            'updated_at'=> now(),
         ]);
 
-        return redirect('/admin/petugas')->with("success","Data Berhasil Ditambah !");
+        return redirect('/admin/petugas')->with("success", "Data Berhasil Ditambah !");
     }
 
     // Form edit
     public function edit($id)
     {
         $petugas = DB::table('petugas')->where('id', $id)->first();
-        return view('admin.petugas.edit', ['petugas' => $petugas]);
+        $kantor = DB::table('kantor')->get();
+        return view('admin.petugas.edit', [
+            'petugas' => $petugas,
+            'kantor' => $kantor
+        ]);
     }
 
     // Update data
@@ -57,10 +73,17 @@ class PetugasController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
+            'nohp' => 'required|string|max:20',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'id_kantor' => 'nullable|exists:kantor,id',
         ]);
 
-        $data = ['nama' => $request->nama];
+        $data = [
+            'id_kantor' => $request->id_kantor,
+            'nama'      => $request->nama,
+            'nohp'      => $request->nohp,
+            'updated_at'=> now(),
+        ];
 
         if ($request->hasFile('foto')) {
             $path = $request->file('foto')->store('foto_petugas', 'public');
@@ -69,7 +92,7 @@ class PetugasController extends Controller
 
         DB::table('petugas')->where('id', $id)->update($data);
 
-        return redirect('/admin/petugas')->with("success","Data Berhasil Diupdate !");
+        return redirect('/admin/petugas')->with("success", "Data Berhasil Diupdate !");
     }
 
     // Hapus data
@@ -81,6 +104,6 @@ class PetugasController extends Controller
         }
 
         DB::table('petugas')->where('id', $id)->delete();
-        return redirect('/admin/petugas')->with("success","Data Berhasil Dihapus !");
+        return redirect('/admin/petugas')->with("success", "Data Berhasil Dihapus !");
     }
 }

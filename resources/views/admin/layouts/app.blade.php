@@ -365,10 +365,10 @@
             <span class="micon bi bi-house"></span><span class="mtext">Dashboard</span>
         </a>
     </li>
-    <li>
+    {{-- <li>
         <a href="/admin/kategori" class="dropdown-toggle no-arrow @if ($activePage == 'kategori') active @endif">
             <span class="micon dw dw-book"></span><span class="mtext">Data Kategori</span>
-        </a>
+        </a> --}}
     </li>
     <li class="dropdown">
         <a href="javascript:;" class="dropdown-toggle @if (in_array($activePage, ['lokasi','petugas','metode_pembayaran','jenis_kendaraan','member_sip','kendaraan_member','Pengunjung'])) active @endif">
@@ -383,6 +383,7 @@
             <li><a href="/admin/kendaraan_member" class="@if ($activePage == 'kendaraan_member') active @endif">Data Kendaraan Member</a></li>
             <li><a href="/admin/pengunjung" class="@if ($activePage == 'Pengunjung') active @endif">Data Pengunjung</a></li>
             <li><a href="/admin/lokasi_petugas" class="@if ($activePage == 'lokasi_petugas') active @endif">Data Lokasi Petugas</a></li>
+            <li><a href="/admin/kantor" class="@if ($activePage == 'kantor') active @endif">Data Kantor</a></li>
 
         </ul>
     </li>
@@ -402,14 +403,14 @@
 							</a>
 						</li>
 						<li>
-							<a href="/admin/jadwal" class="dropdown-toggle no-arrow @if ($activePage == 'jadwal') active @endif">
+							{{-- <a href="/admin/jadwal" class="dropdown-toggle no-arrow @if ($activePage == 'jadwal') active @endif">
 								<span class="micon dw dw-calendar1"></span><span class="mtext">Data Jadwal</span>
 							</a>
 						</li>
 						<li>
 							<a href="/admin/presensi" class="dropdown-toggle no-arrow @if ($activePage == 'presensi') active @endif">
 								<span class="micon dw dw-id-card"></span><span class="mtext">Data Presensi</span>
-							</a>
+							</a> --}}
 						</li>
 					</ul>
 				</div>

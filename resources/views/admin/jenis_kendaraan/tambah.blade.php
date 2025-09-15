@@ -36,7 +36,7 @@
          <!-- Dropdown Jenis Kendaraan -->
          <div class="form-group">
             <label>Jenis Kendaraan<span class="text-danger">*</span></label>
-            <select name="jenis_kendaraan" id="jenis_kendaraan" class="form-control" required>
+            <select name="jenis_kendaraan" id="jenis_kendaraan" class="form-control select2" required>
                <option value="">-- Pilih Jenis Kendaraan --</option>
                <option value="Roda 2">Roda 2</option>
                <option value="Roda 4">Roda 4</option>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\JenisKendaraanController;
+use App\Http\Controllers\Admin\KantorController;
 use App\Http\Controllers\Admin\KendaraanMemberController;
 use App\Http\Controllers\Admin\LokasiController;
 use App\Http\Controllers\Admin\LokasiPetugasController;
@@ -70,7 +71,7 @@ Route::prefix('admin/kategori')
 // Account
 Route::prefix('admin/account')
     ->name('admin.account.')
-    ->middleware('cekLevel:1')
+    ->middleware('cekLevel:1 2')
     ->controller(AccountController::class)
     ->group(function () {
         Route::get('/', 'read')->name('read');
@@ -185,6 +186,19 @@ Route::prefix('admin/account')
     ->name('admin.lokasi_petugas.')
     ->middleware('cekLevel:1 2')
     ->controller(LokasiPetugasController::class)
+    ->group(function () {
+        Route::get('/', 'read')->name('read');
+        Route::get('/add', 'add')->name('add');
+        Route::post('/create', 'create')->name('create');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update/{id}', 'update')->name('update');
+        Route::get('/delete/{id}', 'delete')->name('delete');
+    });
+// Kantor
+    Route::prefix('admin/kantor')
+    ->name('admin.kantor.')
+    ->middleware('cekLevel:1 2')
+    ->controller(KantorController::class)
     ->group(function () {
         Route::get('/', 'read')->name('read');
         Route::get('/add', 'add')->name('add');

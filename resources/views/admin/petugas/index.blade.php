@@ -7,12 +7,12 @@
       <div class="row">
          <div class="col-md-6 col-sm-12">
             <div class="title">
-               <h4>Data petugas</h4>
+               <h4>Data Petugas</h4>
             </div>
             <nav aria-label="breadcrumb" role="navigation">
                <ol class="breadcrumb">
                   <li class="breadcrumb-item"><a href="#">Data Master</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Data petugas</li>
+                  <li class="breadcrumb-item active" aria-current="page">Data Petugas</li>
                </ol>
             </nav>
          </div>
@@ -22,7 +22,7 @@
    <div class="pd-20 card-box mb-30">
       <div class="clearfix">
          <div class="pull-left">
-            <h2 class="text-primary h2"><i class="icon-copy dw dw-list"></i> List Data petugas</h2>
+            <h2 class="text-primary h2"><i class="icon-copy dw dw-list"></i> List Data Petugas</h2>
          </div>
          <div class="pull-right">
             <a href="/admin/petugas/add" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Tambah Data</a>
@@ -50,6 +50,8 @@
             <tr>
                <th width="5%">#</th>
                <th>Nama Petugas</th>
+               <th>No HP</th>
+               <th>Kantor</th>
                <th>Foto</th>
                <th class="table-plus datatable-nosort text-center">Action</th>
             </tr>
@@ -60,6 +62,8 @@
             <tr>
                <td class="text-center">{{$no++}}</td>
                <td>{{$data->nama}}</td>
+               <td>{{$data->nohp}}</td>
+               <td>{{$data->nama_kantor ?? '-'}}</td>
                <td class="text-center" width="15%">
                   @if($data->foto)
                      <img src="{{ asset('storage/'.$data->foto) }}" width="80" class="img-thumbnail">
@@ -82,7 +86,8 @@
    </div>
    <!-- Striped table End -->
 </div>
-<!-- Modal -->
+
+<!-- Modal Hapus -->
 @foreach($petugas as $data)
 <div class="modal fade" id="data-{{$data->id}}" tabindex="-1" role="dialog" aria-hidden="true">
    <div class="modal-dialog" role="document">
@@ -93,6 +98,14 @@
             <div class="form-group" style="font-size: 17px;">
                <label>Nama Petugas</label>
                <input class="form-control" value="{{$data->nama}}" readonly>
+            </div>
+            <div class="form-group" style="font-size: 17px;">
+               <label>No HP</label>
+               <input class="form-control" value="{{$data->nohp}}" readonly>
+            </div>
+            <div class="form-group" style="font-size: 17px;">
+               <label>Kantor</label>
+               <input class="form-control" value="{{$data->nama_kantor ?? '-'}}" readonly>
             </div>
             <div class="form-group" style="font-size: 17px;">
                <label>Foto</label><br>
