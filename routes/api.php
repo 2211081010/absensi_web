@@ -8,7 +8,8 @@ use App\Http\Controllers\ApI\JenisKendaraanController;
 use App\Http\Controllers\ApI\LokasiPetugasController;
 use App\Http\Controllers\ApI\MetodePembayaranController;
 use App\Http\Controllers\Api\MemberSipController;
-use App\Http\Controllers\Api\PetugasController;
+use App\Http\Controllers\Api\PegawaiController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,14 +67,30 @@ Route::get('metodepembayaran/{id}', [MetodePembayaranController::class, 'show'])
 Route::put('metodepembayaran/{id}', [MetodePembayaranController::class, 'update']);
 Route::delete('metodepembayaran/{id}', [MetodePembayaranController::class, 'destroy']);
 
-
-
 Route::apiResource('membersip', MemberSipController::class);
 
+use App\Http\Controllers\Api\AbsensiController;
 
-// Route::get('/petugas', [PetugasController::class, 'index']);
-// Route::post('/petugas', [PetugasController::class, 'store']);
-// Route::get('/petugas/{id}', [PetugasController::class, 'show']);
-// Route::put('/petugas/{id}', [PetugasController::class, 'update']);
-// Route::delete('/petugas/{id}', [PetugasController::class, 'destroy']);
+Route::prefix('absensi')->group(function () {
+    Route::get('/', [AbsensiController::class, 'index']);          // list absensi
+    Route::post('/create', [AbsensiController::class, 'create']);  // tambah absensi
+    Route::get('/show/{id}', [AbsensiController::class, 'show']);  // detail
+    Route::post('/update/{id}', [AbsensiController::class, 'update']); // update absensi
+    Route::delete('/delete/{id}', [AbsensiController::class, 'delete']); // delete absensi
+});
 
+
+Route::post('login', [AuthController::class, 'login']);
+
+// Middleware auth:sanctum untuk proteksi
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('pegawai/by-user', [PegawaiController::class, 'byUser']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/pegawai/me', [PegawaiController::class, 'byUser']);
+    Route::get('/absensi/today/{id}', [AbsensiController::class, 'today']);
+
+    Route::post('/absensi/create', [AbsensiController::class, 'create']);
+    Route::post('/absensi/pulang', [AbsensiController::class, 'pulang']);
+});

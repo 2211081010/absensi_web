@@ -13,23 +13,25 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('petugas', function (Blueprint $table) {
+        Schema::create('pegawai', function (Blueprint $table) {
             $table->id();
 
-            // relasi ke kantor
-            $table->unsignedBigInteger('id_kantor')->nullable();
+            // relasi ke user
+            $table->unsignedBigInteger('id_user');
 
+            $table->string('nip')->unique();
             $table->string('nama');
-            $table->string('nohp');
+            $table->string('contact')->nullable();
+            $table->text('alamat')->nullable();
             $table->string('foto')->nullable();
 
             $table->timestamps();
 
-            // foreign key ke kantor
-            $table->foreign('id_kantor')
+            // foreign key ke users
+            $table->foreign('id_user')
                   ->references('id')
-                  ->on('kantor')
-                  ->onDelete('cascade');
+                  ->on('users')
+                  ->onDelete('cascade'); // jika user dihapus, otomatis hapus pegawai
         });
     }
 
@@ -40,6 +42,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('petugas');
+        Schema::dropIfExists('pegawai');
     }
 };

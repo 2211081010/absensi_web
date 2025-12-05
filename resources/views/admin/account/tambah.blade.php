@@ -61,7 +61,7 @@
                </div>
             </div>
          </div>
-         <button type="submit" class="btn btn-primary mt-1 mr-2"><span class="icon-copy ti-save"></span> Tambah Data</button>               
+         <button type="submit" class="btn btn-primary mt-1 mr-2"><span class="icon-copy ti-save"></span> Tambah Data</button>
       </form>
    </div>
    <!-- Striped table End -->
@@ -70,7 +70,7 @@
    function formatNumber(input) {
        // Menghapus semua karakter kecuali angka
        let value = input.value.replace(/\D/g, '');
-       
+
        // Menambahkan format pemisah ribuan
        input.value = new Intl.NumberFormat().format(value);
    }

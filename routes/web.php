@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AbsensiController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\Admin\MemberSipController;
 use App\Http\Controllers\Admin\MetodePembayaranController;
 use App\Http\Controllers\Admin\PengunjungController;
 use App\Http\Controllers\Admin\PetugasController;
+use App\Http\Controllers\Admin\PegawaiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,20 +56,6 @@ Route::get('/admin/home', [HomeController::class, 'index']);
 Route::get('/admin/change', [HomeController::class, 'change']);
 Route::post('/admin/change_password', [HomeController::class, 'change_password']);
 
-// Kategori
-Route::prefix('admin/kategori')
-    ->name('admin.kategori.')
-    ->middleware('cekLevel:1 2')
-    ->controller(KategoriController::class)
-    ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'delete')->name('delete');
-    });
-
 // Account
 Route::prefix('admin/account')
     ->name('admin.account.')
@@ -96,116 +84,28 @@ Route::prefix('admin/account')
         Route::post('/update/{id}', 'update')->name('update');
         Route::get('/delete/{id}', 'delete')->name('delete');
     });
-
-    // Lokasi
-    Route::prefix('admin/lokasi')
-    ->name('admin.lokasi.')
-    ->middleware('cekLevel:1 2')
-    ->controller(LokasiController::class)
+Route::prefix('admin/pegawai')->group(function () {
+    Route::get('/', [PegawaiController::class, 'index'])->name('admin.pegawai.index');
+    Route::get('/add', [PegawaiController::class, 'create'])->name('admin.pegawai.create');
+    Route::post('/store', [PegawaiController::class, 'store'])->name('admin.pegawai.store');
+    Route::get('/edit/{id}', [PegawaiController::class, 'edit'])->name('admin.pegawai.edit');
+    Route::post('/update/{id}', [PegawaiController::class, 'update'])->name('admin.pegawai.update');
+    Route::get('/delete/{id}', [PegawaiController::class, 'delete'])->name('admin.pegawai.delete');
+});
+// Absensi
+Route::prefix('admin/absensi')
+    ->name('admin.absensi.')
+    ->middleware('auth')
+    ->controller(App\Http\Controllers\Admin\AbsensiController::class)
     ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'delete')->name('delete');
-    });
 
-    // Metode Pembayaran
-    Route::prefix('admin/metode_pembayaran')
-    ->name('admin.metode_pembayaran.')
-    ->middleware('cekLevel:1 2')
-    ->controller(MetodePembayaranController::class)
-    ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'delete')->name('delete');
-    });
-
-// Jenis Kendaraan
-    Route::prefix('admin/jenis_kendaraan')
-    ->name('admin.jenis_kendaraan.')
-    ->middleware('cekLevel:1 2')
-    ->controller(JenisKendaraanController::class)
-    ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'delete')->name('delete');
-    });
-
-    // Jenis Kendaraan
-    Route::prefix('admin/member_sip')
-    ->name('admin.member_sip.')
-    ->middleware('cekLevel:1 2')
-    ->controller(MemberSipController::class)
-    ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'delete')->name('delete');
-        Route::get('/show/{id}', 'show')->name('show');
-    });
-
-// Kendaraan Member
-    Route::prefix('admin/kendaraan_member')
-    ->name('admin.kendaraan_member.')
-    ->middleware('cekLevel:1 2')
-    ->controller(KendaraanMemberController::class)
-    ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
+        Route::get('/', 'index')->name('index');
+        Route::get('/add', 'create')->name('add');
+        Route::post('/create', 'store')->name('store');
         Route::get('/edit/{id}', 'edit')->name('edit');
         Route::post('/update/{id}', 'update')->name('update');
         Route::get('/delete/{id}', 'delete')->name('delete');
 
+
     });
 
-// Pengunjung
-    Route::prefix('admin/pengunjung')
-    ->name('admin.pengunjung.')
-    ->middleware('cekLevel:1 2')
-    ->controller(PengunjungController::class)
-    ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'delete')->name('delete');
-    });
-
-    // Lokasi Petugas
-    Route::prefix('admin/lokasi_petugas')
-    ->name('admin.lokasi_petugas.')
-    ->middleware('cekLevel:1 2')
-    ->controller(LokasiPetugasController::class)
-    ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'delete')->name('delete');
-    });
-// Kantor
-    Route::prefix('admin/kantor')
-    ->name('admin.kantor.')
-    ->middleware('cekLevel:1 2')
-    ->controller(KantorController::class)
-    ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'delete')->name('delete');
-    });

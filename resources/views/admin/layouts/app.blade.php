@@ -375,14 +375,9 @@
             <span class="micon dw dw-user1"></span><span class="mtext">Data Master</span>
         </a>
         <ul class="submenu">
-            <li><a href="/admin/lokasi" class="@if ($activePage == 'lokasi') active @endif">Data Lokasi</a></li>
+            <li><a href="/admin/pegawai" class="@if ($activePage == 'pegawai') active @endif">Data Pegawai</a></li>
 
-            <li><a href="/admin/metode_pembayaran" class="@if ($activePage == 'metode_pembayaran') active @endif">Metode Pembayaran</a></li>
-            <li><a href="/admin/jenis_kendaraan" class="@if ($activePage == 'jenis_kendaraan') active @endif">Jenis Kendaraan</a></li>
-            <li><a href="/admin/kendaraan_member" class="@if ($activePage == 'kendaraan_member') active @endif">Data Kendaraan Member</a></li>
-            <li><a href="/admin/lokasi_petugas" class="@if ($activePage == 'lokasi_petugas') active @endif">Data Lokasi Petugas</a></li>
-            <li><a href="/admin/kantor" class="@if ($activePage == 'kantor') active @endif">Data Kantor</a></li>
-
+            <li><a href="/admin/absensi" class="@if ($activePage == 'absensi') active @endif">Absensi</a></li>
         </ul>
     </li>
 						</li>
@@ -392,16 +387,13 @@
 							</a>
 							<ul class="submenu">
 								<li><a href="/admin/account" class="@if ($activePage == 'account') active @endif">Data Administrator</a></li>
-                                <li><a href="/admin/petugas" class="@if ($activePage == 'petugas') active @endif">Data Petugas</a></li>
-                                <li><a href="/admin/member_sip" class="@if ($activePage == 'member_sip') active @endif">Data Member</a></li>
-							</ul>
 						</li>
-						<li>
+						{{-- <li>
 							<a href="/admin/pengunjung" class="dropdown-toggle no-arrow @if ($activePage == 'pengunjung') active @endif">
 								<span class="micon dw dw-map"></span><span class="mtext">Pengunjung</span>
 							</a>
 						</li>
-						<li>
+						<li> --}}
 							{{-- <a href="/admin/jadwal" class="dropdown-toggle no-arrow @if ($activePage == 'jadwal') active @endif">
 								<span class="micon dw dw-calendar1"></span><span class="mtext">Data Jadwal</span>
 							</a>

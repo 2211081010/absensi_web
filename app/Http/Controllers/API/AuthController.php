@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,9 +8,6 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    /**
-     * Login API
-     */
     public function login(Request $request)
     {
         $request->validate([
@@ -29,10 +26,9 @@ class AuthController extends Controller
 
         $user = Auth::user();
 
-        // Hapus token lama agar tidak menumpuk
+        // Hapus token lama
         $user->tokens()->delete();
 
-        // Buat token baru
         $token = $user->createToken('flutter_token')->plainTextToken;
 
         return response()->json([
@@ -43,9 +39,6 @@ class AuthController extends Controller
         ], 200);
     }
 
-    /**
-     * Logout API
-     */
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
@@ -53,17 +46,6 @@ class AuthController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Logout berhasil',
-        ], 200);
-    }
-
-    /**
-     * Ambil data user login (profil)
-     */
-    public function me(Request $request)
-    {
-        return response()->json([
-            'success' => true,
-            'user' => $request->user(),
         ], 200);
     }
 }

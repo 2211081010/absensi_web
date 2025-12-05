@@ -13,7 +13,7 @@ class AccountController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function read(){
         $account = DB::table('users')->where('level','1')->orderBy('id','DESC')->get();
 
@@ -25,7 +25,7 @@ class AccountController extends Controller
     }
 
     public function create(Request $request){
-        DB::table('users')->insert([  
+        DB::table('users')->insert([
             'name' => $request->name,
             'password' => bcrypt($request->password),
             'username' => $request->username,
@@ -42,7 +42,7 @@ class AccountController extends Controller
     }
 
     public function update(Request $request, $id) {
-        DB::table('users')  
+        DB::table('users')
             ->where('id', $id)
             ->update([
             'name' => $request->name,
@@ -61,7 +61,7 @@ class AccountController extends Controller
     }
 
     public function reset($id){
-        DB::table('users')  
+        DB::table('users')
             ->where('id', $id)
             ->update([
             'password' => bcrypt('Presensi2025')]);
