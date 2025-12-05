@@ -6,17 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\AccountController;
-use App\Http\Controllers\Admin\JenisKendaraanController;
-use App\Http\Controllers\Admin\KantorController;
-use App\Http\Controllers\Admin\KendaraanMemberController;
-use App\Http\Controllers\Admin\LokasiController;
-use App\Http\Controllers\Admin\LokasiPetugasController;
-use App\Http\Controllers\Admin\MemberSipController;
-use App\Http\Controllers\Admin\MetodePembayaranController;
-use App\Http\Controllers\Admin\PengunjungController;
-use App\Http\Controllers\Admin\PetugasController;
 use App\Http\Controllers\Admin\PegawaiController;
 
 /*
@@ -71,19 +61,6 @@ Route::prefix('admin/account')
         Route::get('/reset/{id}', 'reset')->name('reset'); // Hanya untuk Account
     });
 
-    // Petugas
-    Route::prefix('admin/petugas')
-    ->name('admin.petugas.')
-    ->middleware('cekLevel:1 2')
-    ->controller(PetugasController::class)
-    ->group(function () {
-        Route::get('/', 'read')->name('read');
-        Route::get('/add', 'add')->name('add');
-        Route::post('/create', 'create')->name('create');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::post('/update/{id}', 'update')->name('update');
-        Route::get('/delete/{id}', 'delete')->name('delete');
-    });
 Route::prefix('admin/pegawai')->group(function () {
     Route::get('/', [PegawaiController::class, 'index'])->name('admin.pegawai.index');
     Route::get('/add', [PegawaiController::class, 'create'])->name('admin.pegawai.create');
