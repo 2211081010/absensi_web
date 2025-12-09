@@ -85,6 +85,8 @@ Route::post('login', [AuthController::class, 'login']);
 // Middleware auth:sanctum untuk proteksi
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('pegawai/by-user', [PegawaiController::class, 'byUser']);
+    Route::post('/pegawai/update', [PegawaiController::class, 'updateProfile']);
+    Route::post('/pegawai/update-foto', [PegawaiController::class, 'updateFoto']);
     Route::post('logout', [AuthController::class, 'logout']);
 });
 Route::middleware('auth:sanctum')->group(function () {
@@ -94,3 +96,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/absensi/create', [AbsensiController::class, 'create']);
     Route::post('/absensi/pulang', [AbsensiController::class, 'pulang']);
 });
+
